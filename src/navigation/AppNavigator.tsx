@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import PopularMovies from 'screens/PopularMovies';
 import MovieDetails from 'screens/MovieDetails';
 import LatestMovie from 'screens/LatestMovie';
@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-const screenOptions = {headerShown: false};
+const screenOptions = { headerShown: false };
 
 const PopularMoviesStack = () => {
   return (
