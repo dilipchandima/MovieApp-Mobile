@@ -11,7 +11,7 @@ export const getMovieDetailsApi = (params) =>
     action: `/movie/${params}`,
   });
 
-export const getLatestMovie = () =>
+export const getLatestMovieApi = () =>
   Api.request({
     action: '/movies/latest',
   });

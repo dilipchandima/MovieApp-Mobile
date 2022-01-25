@@ -1,46 +1,76 @@
 import { getGenres } from 'actions/Genres.actions';
-import { getLatestMovie, getMovieDetails, getPopularMovies } from 'actions/Movies.actions';
+import { getPopularMovies } from 'actions/Movies.actions';
+import MovieItemComponent from 'components/MovieItem.component';
+import ScreenContainerComponent from 'components/ScreenContainer.component';
 import * as React from 'react';
 
-import { Button, Text, View } from 'react-native';
-import Svg, { Circle, Rect } from 'react-native-svg';
-import { useDispatch } from 'react-redux';
+import { Animated, StyleSheet, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import fonts from 'res/fonts';
-import Logo from 'res/icons/logo.svg';
+import { Movie } from 'types/movie';
+import Reducers from 'types/Reducers';
 
 export default ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const getMovies = async () => {
-    dispatch(getPopularMovies({ page: 10 }));
-  };
+  const scrollX = React.useRef(new Animated.Value(0)).current;
 
-  const getDetails = async () => {
-    dispatch(getMovieDetails(4545));
-  };
+  const movies = useSelector((state: Reducers) => state.movies.popularMovies.movies);
 
-  const getLatest = async () => {
-    dispatch(getLatestMovie());
-  };
-
-  const genres = async () => {
+  React.useEffect(() => {
+    dispatch(getPopularMovies({ page: 1 }));
     dispatch(getGenres());
-  };
+  }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Text style={{ fontFamily: fonts.regular, fontSize: 20, color: 'black' }}>Home Screen</Text>
-      <Text style={{ fontFamily: fonts.light, fontSize: 20, color: 'black' }}>Home Screen</Text>
-      <Text style={{ fontFamily: fonts.bold, fontSize: 20, color: 'black' }}>Home Screen</Text>
-      <Button title="Go to movies" onPress={getMovies} />
-      <Button title="Go to Details" onPress={getDetails} />
-      <Button title="Go to latest" onPress={getLatest} />
-      <Button title="Go to genres" onPress={genres} />
-      <Logo />
-      <Svg height="50%" width="50%" viewBox="0 0 100 100">
-        <Circle cx="50" cy="50" r="45" stroke="blue" strokeWidth="2.5" fill="green" />
-        <Rect x="15" y="15" width="70" height="70" stroke="red" strokeWidth="2" fill="yellow" />
-      </Svg>
-    </View>
+    <ScreenContainerComponent removeScrollView>
+      <Text style={styles.header}>What's Popular</Text>
+      <Animated.FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={290}
+        decelerationRate={0}
+        data={movies}
+        extraData={movies}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+          useNativeDriver: false,
+        })}
+        scrollEventThrottle={16}
+        keyExtractor={(item: Movie) => item.id.toString()}
+        renderItem={({ item, index }) => {
+          const inputRange = [(index - 2) * 290, (index - 1) * 290, index * 290, (index + 1) * 290];
+
+          const translateY = scrollX.interpolate({
+            inputRange,
+            outputRange: [100, 200, 100, 200],
+            extrapolate: 'clamp',
+          });
+
+          const rotate = scrollX.interpolate({
+            inputRange,
+            outputRange: ['0deg', '-20deg', '0deg', '20deg'],
+            extrapolate: 'clamp',
+          });
+
+          return (
+            <MovieItemComponent
+              movie={item}
+              index={index}
+              translateY={translateY}
+              rotate={rotate}
+            />
+          );
+        }}
+      />
+    </ScreenContainerComponent>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    fontFamily: fonts.bold,
+    fontSize: 20,
+    marginTop: 25,
+    marginLeft: 25,
+  },
+});

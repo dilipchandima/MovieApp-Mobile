@@ -5,9 +5,15 @@ export const getPopularMovies = (payload: { page: number }) => ({
   payload,
 });
 
-export const getMovieDetails = (payload: number) => ({
+export const getMovieDetails = (
+  payload: number,
+  success?: (data) => void,
+  failed?: () => void,
+) => ({
   type: GET_MOVIE_DETAILS,
   payload,
+  success,
+  failed,
 });
 
 export const getLatestMovie = () => ({

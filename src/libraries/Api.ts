@@ -1,4 +1,6 @@
+import { setLoader } from 'actions/Common.actions';
 import axios, { AxiosRequestConfig, Method } from 'axios';
+import { store } from 'store/Store';
 import { BASE_URL, IS_DEV_APP } from '../Config';
 
 interface IProps {
@@ -9,6 +11,9 @@ interface IProps {
 
 const request = async ({ action, method = 'GET', params }: IProps) => {
   const url = `${BASE_URL}${action}`;
+
+  store.dispatch(setLoader({ isSet: true, url: action }));
+
   const axiosRequestConfig: AxiosRequestConfig = {
     method,
     url: `${BASE_URL}${action}`,
@@ -20,6 +25,9 @@ const request = async ({ action, method = 'GET', params }: IProps) => {
   }
 
   const result = await axios(axiosRequestConfig);
+
+  store.dispatch(setLoader({ isSet: false, url: action }));
+
   return result;
 };
 

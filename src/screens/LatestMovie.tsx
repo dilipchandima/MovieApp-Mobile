@@ -1,11 +1,27 @@
+import { getLatestMovie } from 'actions/Movies.actions';
+import MovieDetailsComponent from 'components/MovieDetails.component';
+import ScreenContainerComponent from 'components/ScreenContainer.component';
 import * as React from 'react';
 
-import { Button, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default ({ navigation }) => {
+  const dispatch = useDispatch();
+  const latestMovie = useSelector((state) => state.movies.latestMovie);
+
+  React.useEffect(() => {
+    dispatch(getLatestMovie());
+
+    const unsubscribe = navigation.addListener('tabPress', (e) => {
+      dispatch(getLatestMovie());
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
+    <ScreenContainerComponent>
+      <MovieDetailsComponent movie={latestMovie} />
+    </ScreenContainerComponent>
   );
 };

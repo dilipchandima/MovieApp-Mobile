@@ -5,9 +5,9 @@ import * as GenresApi from 'apis/Genres.api';
 function* getGenres() {
   try {
     const result = yield call(GenresApi.getGenresApi);
-    yield put({ type: GET_GENRES_SUCCESS, payload: result.data });
+    yield put({ type: GET_GENRES_SUCCESS, payload: result?.data });
   } catch (error: any) {
-    yield put({ type: GET_GENRES_FAILED, payload: error.response.data });
+    yield put({ type: GET_GENRES_FAILED, payload: error?.response?.data });
   }
 }
 

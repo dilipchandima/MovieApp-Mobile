@@ -15,27 +15,29 @@ import * as MoviesApi from 'apis/Movie.api';
 function* getPopularMovies({ payload }) {
   try {
     const result = yield call(MoviesApi.getPopularMoviesApi, payload);
-    yield put({ type: GET_POPULAR_MOVIES_SUCCESS, payload: result.data });
+    yield put({ type: GET_POPULAR_MOVIES_SUCCESS, payload: result?.data });
   } catch (error: any) {
-    yield put({ type: GET_POPULAR_MOVIES_FAILED, payload: error.response.data });
+    yield put({ type: GET_POPULAR_MOVIES_FAILED, payload: error?.response?.data });
   }
 }
 
-function* getMovieDetails({ payload }) {
+function* getMovieDetails({ payload, success, failed }) {
   try {
     const result = yield call(MoviesApi.getMovieDetailsApi, payload);
-    yield put({ type: GET_MOVIE_DETAILS_SUCCESS, payload: result.data });
+    yield put({ type: GET_MOVIE_DETAILS_SUCCESS, payload: result?.data });
+    success?.(result.data.data);
   } catch (error: any) {
-    yield put({ type: GET_MOVIE_DETAILS_FAILED, payload: error.response.data });
+    yield put({ type: GET_MOVIE_DETAILS_FAILED, payload: error?.response?.data });
+    failed?.();
   }
 }
 
 function* getLatestMovie() {
   try {
-    const result = yield call(MoviesApi.getLatestMovie);
-    yield put({ type: GET_LATEST_MOVIE_SUCCESS, payload: result.data });
+    const result = yield call(MoviesApi.getLatestMovieApi);
+    yield put({ type: GET_LATEST_MOVIE_SUCCESS, payload: result?.data });
   } catch (error: any) {
-    yield put({ type: GET_LATEST_MOVIE_FAILED, payload: error.response.data });
+    yield put({ type: GET_LATEST_MOVIE_FAILED, payload: error?.response?.data });
   }
 }
 

@@ -1,12 +1,15 @@
+import MovieDetailsComponent from 'components/MovieDetails.component';
+import ScreenContainerComponent from 'components/ScreenContainer.component';
 import * as React from 'react';
 
-import { Button, Text, View } from 'react-native';
+import { SingleMovie } from 'types/movie';
 
-export default ({ navigation }) => {
+export default ({ route }) => {
+  const movie: SingleMovie = route.params.movie;
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button title="back" onPress={() => navigation.goBack()} />
-    </View>
+    <ScreenContainerComponent enableBack>
+      <MovieDetailsComponent movie={movie} />
+    </ScreenContainerComponent>
   );
 };
