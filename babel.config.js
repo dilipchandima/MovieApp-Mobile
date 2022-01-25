@@ -16,6 +16,7 @@ module.exports = {
           screens: './src/screens',
           store: './src/store',
           types: './src/types',
+          apis: './src/apis',
         },
       },
     ],
