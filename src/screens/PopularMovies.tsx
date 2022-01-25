@@ -72,6 +72,7 @@ export default ({}) => {
 
           return (
             <MovieItemComponent
+              testID={`test_btn_${index}`}
               movie={item}
               index={index}
               translateY={translateY}

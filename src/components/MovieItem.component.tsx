@@ -12,7 +12,7 @@ interface IProps {
   movie: Movie;
   index: number;
 }
-export default ({ movie, translateY, index, rotate }: IProps) => {
+export default ({ movie, translateY, index, rotate, testID }: IProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ export default ({ movie, translateY, index, rotate }: IProps) => {
   };
 
   return (
-    <Pressable onPress={onPressMovie}>
+    <Pressable onPress={onPressMovie} testID={testID}>
       <Animated.View style={[styles.container, { transform: [{ translateY }, { rotate }] }]}>
         <View style={styles.voteContainer}>
           <Text style={styles.voteText}>{movie.vote_average}</Text>
