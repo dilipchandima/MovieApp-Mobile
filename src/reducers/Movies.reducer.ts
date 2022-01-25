@@ -10,18 +10,35 @@ const INIT_STATE = {
   genres: [],
 };
 
+const setPopularMovies = (state, payload) => {
+  const { results, page, total_pages, total_results } = payload?.data;
+  if (page === 1) {
+    return {
+      ...state,
+      popularMovies: {
+        movies: results,
+        currentPage: page,
+        totalPages: total_pages,
+        totalResults: total_results,
+      },
+    };
+  }
+
+  return {
+    ...state,
+    popularMovies: {
+      movies: [...state.popularMovies.movies, ...results],
+      currentPage: page,
+      totalPages: total_pages,
+      totalResults: total_results,
+    },
+  };
+};
+
 const MovieReducer = (state = INIT_STATE, { type, payload }) => {
   switch (type) {
     case GET_POPULAR_MOVIES_SUCCESS:
-      return {
-        ...state,
-        popularMovies: {
-          movies: payload.data.results,
-          currentPage: payload.data.page,
-          totalPages: payload.data.total_pages,
-          totalResults: payload.data.total_results,
-        },
-      };
+      return setPopularMovies(state, payload);
     case GET_LATEST_MOVIE_SUCCESS:
       return {
         ...state,
