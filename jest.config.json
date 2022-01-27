@@ -1,0 +1,19 @@
+{
+  "preset": "@testing-library/react-native",
+  "collectCoverageFrom": ["src/**/*.{ts,tsx}"],
+  "moduleDirectories": ["node_modules", "src"],
+  "setupFiles": ["<rootDir>/jestSetup/setup.js"],
+  "transformIgnorePatterns": [
+    "node_modules/(?!(jest-)?(@?react-native|@?react-navigation|@react-native-community|redux-persist))"
+  ],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/jestSetup",
+    "/src/Config.ts",
+    "/src/App.tsx",
+    "/src/store/RootReducer.ts",
+    "/src/store/RootSaga.ts",
+    "/src/store/Store.ts",
+    "/src/constants/"
+  ]
+}
