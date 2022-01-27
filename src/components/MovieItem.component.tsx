@@ -64,12 +64,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 15,
     marginHorizontal: 20,
+    color: colors.primaryDark,
   },
   overview: {
     fontFamily: fonts.light,
     marginTop: 10,
     fontSize: 13,
     marginHorizontal: 20,
+    color: colors.primaryDark,
   },
   voteContainer: {
     position: 'absolute',
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
   releaseDate: {
     fontFamily: fonts.regular,
     fontSize: 13,
+    color: colors.primaryDark,
   },
   hr: {
     width: 100,

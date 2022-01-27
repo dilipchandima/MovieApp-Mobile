@@ -8,7 +8,7 @@ export default ({ genres }) => {
     <>
       <Text style={styles.title}>Genres</Text>
       <View style={styles.row}>
-        {genres.length === 0 && <Text style={styles.noGenres}>No genres listed</Text>}
+        {genres?.length === 0 && <Text style={styles.noGenres}>No genres listed</Text>}
         {genres?.map((item) => (
           <View style={styles.lngContainer} key={item.name}>
             <Text style={styles.lng}>{item?.name}</Text>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.bold,
+    color: colors.primaryDark,
   },
   lng: {
     fontFamily: fonts.regular,
@@ -42,5 +43,6 @@ const styles = StyleSheet.create({
   noGenres: {
     fontFamily: fonts.regular,
     opacity: 0.3,
+    color: colors.primaryDark,
   },
 });

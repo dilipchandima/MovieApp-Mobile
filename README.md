@@ -32,7 +32,7 @@ Run following command for start the server
 yarn start
 ```
 
-and then build the app
+Please change the env file baseUrl, and then build the app
 
 ```
 yarn ios

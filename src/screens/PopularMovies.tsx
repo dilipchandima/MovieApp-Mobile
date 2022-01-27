@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 25,
     marginLeft: 25,
+    color: colors.primaryDark,
   },
   backBtn: {
     backgroundColor: colors.primaryDark,

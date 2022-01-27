@@ -8,8 +8,8 @@ export default ({ langs }) => {
     <>
       <Text style={styles.title}>Spoken Languages</Text>
       <View style={styles.row}>
-        {langs.length === 0 && <Text style={styles.noGenres}>No languages listed</Text>}
-        {langs.map((item) => (
+        {langs?.length === 0 && <Text style={styles.noGenres}>No languages listed</Text>}
+        {langs?.map((item) => (
           <View style={styles.lngContainer} key={item?.english_name}>
             <Text style={styles.lng}>{item?.english_name}</Text>
           </View>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.bold,
+    color: colors.primaryDark,
   },
   lng: {
     fontFamily: fonts.regular,
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
   },
   noGenres: {
     fontFamily: fonts.regular,
+    color: colors.primaryDark,
     opacity: 0.3,
   },
 });

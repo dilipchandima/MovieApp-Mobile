@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     paddingRight: 30,
     marginTop: 15,
+    backgroundColor: colors.primaryDark,
   },
   detailsContainer: {
     backgroundColor: colors.primaryDark,
